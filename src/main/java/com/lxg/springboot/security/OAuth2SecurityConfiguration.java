@@ -51,6 +51,7 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.passwordEncoder(new Md5PasswordEncoder());
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 		http

@@ -36,6 +36,9 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findByUsername(username);
 
+        if(user == null){
+             throw new UsernameNotFoundException("用户名："+ username + "不存在！");
+        }
         Collection<SimpleGrantedAuthority> collection = new HashSet<SimpleGrantedAuthority>();
         Iterator<String> iterator =  userRoleService.findRoles(user.getId()).iterator();
         while (iterator.hasNext()){
