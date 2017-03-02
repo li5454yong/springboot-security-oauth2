@@ -1,5 +1,6 @@
 package com.lxg.springboot.config;
 
+import com.lxg.springboot.entity.Role;
 import com.lxg.springboot.entity.User;
 import com.lxg.springboot.entity.UserRole;
 import com.lxg.springboot.service.UserRoleService;
@@ -40,9 +41,9 @@ public class MyUserDetailsService implements UserDetailsService {
              throw new UsernameNotFoundException("用户名："+ username + "不存在！");
         }
         Collection<SimpleGrantedAuthority> collection = new HashSet<SimpleGrantedAuthority>();
-        Iterator<String> iterator =  userRoleService.findRoles(user.getId()).iterator();
+        Iterator<Role> iterator =  user.getList().iterator();
         while (iterator.hasNext()){
-            collection.add(new SimpleGrantedAuthority(iterator.next()));
+            collection.add(new SimpleGrantedAuthority(iterator.next().getRole_name()));
         }
 
         return new org.springframework.security.core.userdetails.User(username,user.getPassword(),collection);
